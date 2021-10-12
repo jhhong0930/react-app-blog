@@ -97,8 +97,18 @@ function App() {
       <button onClick={ () => { changeClickedTitle(2) }}>버튼3</button> */}
 
       
-      { input }
-      <input onChange={ (e) => { changeInput(e.target.value) } } />
+      {/* { input }
+      <input onChange={ (e) => { changeInput(e.target.value) } } /> */}
+
+
+      <div className="publish">
+        <input onChange={ (e) => { changeInput(e.target.value)} }/>
+        <button onClick={ () => {
+          var arrayCopy = [...list];
+          arrayCopy.unshift(input); // array 맨앞에 자료 추가
+          changeList( arrayCopy );
+        }}>저장</button>
+      </div>
 
       <button onClick={ () => {changeModal(!modal)}}>열리고 닫히는 모달 버튼</button>
 
@@ -124,7 +134,7 @@ function Modal(props) {
   return (
     <>
       <div className="modal">
-        <h2>{props.list[props.clickedTitle]}</h2>
+        <h2> { props.list[props.clickedTitle] } </h2>
         <p>날짜</p>
         <p>상세내용</p>
       </div>
