@@ -69,16 +69,11 @@ function App() {
       {/* 리엑트에선 UI를 만들 때 state 데이터를 이용 
           state 변경시 복사본은 reference 자료형만 해당, 나머지는 직접 수정 가능*/}
       <button onClick={ () => {changeModal(true) } }>버튼</button>
-      {
-        modal === true
-        ? <Modal />
-        : null
-      }
 
       <button onClick={ () => {changeModal(!modal)}}>열리고 닫히는 모달 버튼</button>
       {
         modal === true
-        ? <Modal />
+        ? <Modal list={list} />
         : null
       }
 
@@ -107,11 +102,11 @@ function App() {
 // - 자주 변경되는 HTML UL들
 // - 다른 페이지를 만들 때도 컴포넌트를 사용
 // state를 사용할 때 복잡하다(상위 Component에서 만든 state를 쓰려면 props 문법 사용 필요)
-function Modal() {
+function Modal(props) {
   return (
     <>
       <div className="modal">
-        <h2>제목</h2>
+        <h2>{props.list[1]}</h2>
         <p>날짜</p>
         <p>상세내용</p>
       </div>
