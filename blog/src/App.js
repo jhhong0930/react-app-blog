@@ -15,10 +15,12 @@ function App() {
   // state를 사용하는 이유 = 웹이 App처럼 동작하게 만들고 싶어서
   // state에 저장된 데이터가 변경되면 html이 자동으로 재렌더링 한다
   // 하지만 그냥 변수는 변경되어도 자동 재렌더링이 안된담
-  let [list, changeList] = useState(['고기 맛집 추천', '강남 우동 맛집']); 
+  let [list, changeList] = useState(['고기 맛집 추천', '강남 우동 맛집', '인생 파스타 맛집']); 
   let [count, changeCount] = useState(0);
 
   let [modal, changeModal] = useState(false);
+
+  let [clickedTitle, changeClickedTitle] = useState(0);
 
   let posts = '강남 고기 맛집';
 
@@ -70,25 +72,35 @@ function App() {
           state 변경시 복사본은 reference 자료형만 해당, 나머지는 직접 수정 가능*/}
       <button onClick={ () => {changeModal(true) } }>버튼</button>
 
-      <button onClick={ () => {changeModal(!modal)}}>열리고 닫히는 모달 버튼</button>
-      {
-        modal === true
-        ? <Modal list={list} />
-        : null
-      }
+      
+
 
       { repeatableUI() }
 
       {
-        list.map(function (l) {
+        list.map(function (l, i) {
           return <div className="list">
-                  <h3>{l} <span onClick={ () => {changeCount(count + 1)} }>👍</span> {count} </h3>
+                  <h3 onClick={ () => { changeClickedTitle(i) }}>{l} 
+                    <span onClick={ () => {changeCount(count + 1)} }>👍</span> {count} 
+                  </h3>
                   <p>2월 17일 발행</p>
                   <hr/>
                 </div>
         }) 
       }
 
+
+      {/* <button onClick={ () => { changeClickedTitle(0) }}>버튼1</button>
+      <button onClick={ () => { changeClickedTitle(1) }}>버튼2</button>
+      <button onClick={ () => { changeClickedTitle(2) }}>버튼3</button> */}
+
+      <button onClick={ () => {changeModal(!modal)}}>열리고 닫히는 모달 버튼</button>
+
+      {
+        modal === true
+        ? <Modal list={list} clickedTitle={clickedTitle} />
+        : null
+      }
       
     </div>
   );
@@ -106,7 +118,7 @@ function Modal(props) {
   return (
     <>
       <div className="modal">
-        <h2>{props.list[1]}</h2>
+        <h2>{props.list[props.clickedTitle]}</h2>
         <p>날짜</p>
         <p>상세내용</p>
       </div>
