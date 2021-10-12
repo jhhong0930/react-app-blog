@@ -34,6 +34,17 @@ function App() {
 
   }
 
+  function repeatableUI() {
+
+    var array = [];
+
+    for (var i=0; i<3; i++) {
+      array.push(<div>안녕</div>)
+    }
+
+    return array
+  }
+
   return (
     <div className="App">
 
@@ -69,6 +80,18 @@ function App() {
         modal === true
         ? <Modal />
         : null
+      }
+
+      { repeatableUI() }
+
+      {
+        list.map(function (l) {
+          return <div className="list">
+                  <h3>{l} <span onClick={ () => {changeCount(count + 1)} }>👍</span> {count} </h3>
+                  <p>2월 17일 발행</p>
+                  <hr/>
+                </div>
+        }) 
       }
 
       
