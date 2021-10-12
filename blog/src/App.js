@@ -18,6 +18,8 @@ function App() {
   let [list, changeList] = useState(['고기 맛집 추천', '강남 우동 맛집']); 
   let [count, changeCount] = useState(0);
 
+  let [modal, changeModal] = useState(false);
+
   let posts = '강남 고기 맛집';
 
   function changeName() {
@@ -48,12 +50,27 @@ function App() {
       </div>
 
       <div className="list">
-        <h3>{list[1]}</h3>
+        <h3 onClick={ () => {changeModal(true)} }>{list[1]}</h3>
         <p>2월 17일 발행</p>
         <hr/>
       </div>
 
-      <Modal/>
+      {/* 리엑트에선 UI를 만들 때 state 데이터를 이용 
+          state 변경시 복사본은 reference 자료형만 해당, 나머지는 직접 수정 가능*/}
+      <button onClick={ () => {changeModal(true) } }>버튼</button>
+      {
+        modal === true
+        ? <Modal />
+        : null
+      }
+
+      <button onClick={ () => {changeModal(!modal)}}>열리고 닫히는 모달 버튼</button>
+      {
+        modal === true
+        ? <Modal />
+        : null
+      }
+
       
     </div>
   );
