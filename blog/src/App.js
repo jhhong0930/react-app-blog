@@ -22,6 +22,8 @@ function App() {
 
   let [clickedTitle, changeClickedTitle] = useState(0);
 
+  let [input, changeInput] = useState('');
+
   let posts = '강남 고기 맛집';
 
   function changeName() {
@@ -79,7 +81,7 @@ function App() {
 
       {
         list.map(function (l, i) {
-          return <div className="list">
+          return <div className="list" key={i}>
                   <h3 onClick={ () => { changeClickedTitle(i) }}>{l} 
                     <span onClick={ () => {changeCount(count + 1)} }>👍</span> {count} 
                   </h3>
@@ -93,6 +95,10 @@ function App() {
       {/* <button onClick={ () => { changeClickedTitle(0) }}>버튼1</button>
       <button onClick={ () => { changeClickedTitle(1) }}>버튼2</button>
       <button onClick={ () => { changeClickedTitle(2) }}>버튼3</button> */}
+
+      
+      { input }
+      <input onChange={ (e) => { changeInput(e.target.value) } } />
 
       <button onClick={ () => {changeModal(!modal)}}>열리고 닫히는 모달 버튼</button>
 
