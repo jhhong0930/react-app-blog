@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import './App.css';
+import Data from './data.js';
 
 // react-bootstrap 설치 npm install react-bootstrap@next bootstrap@버전
 
+// 내보내기: export {변수1, 변수2, ...} 가져오기: import {변수1, 변수2, ...} from 경로
+
 function App() {
+
+  let [shoes, changeShoes] = useState(Data);
+
   return (
     <div className="App">
 
@@ -39,26 +46,27 @@ function App() {
 
     <div className="container">
       <div className="row">
-        <div className="col-md-4">
-          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-          <h4>상품명</h4>
-          <p>상품설명 & 가격</p>
-        </div>
-        <div className="col-md-4">
-          <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="100%" />
-          <h4>상품명</h4>
-          <p>상품설명 & 가격</p>
-        </div>
-        <div className="col-md-4">
-          <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="100%" />
-          <h4>상품명</h4>
-          <p>상품설명 & 가격</p>
-        </div>
+        {
+          shoes.map( (a, i) => {
+            // 반복시킨 HTML에는 key가 필요
+            return <Item shoes={shoes[i]} i={i} key={i}/>
+          })
+        }
       </div>
     </div>
 
     </div>
   );
+}
+
+function Item(props) {
+  return (
+    <div className="col-md-4">
+      <img src={ 'https://codingapple1.github.io/shop/shoes' + (props.i + 1) +'.jpg' } width="100%" />
+      <h4>{ props.shoes.title }</h4>
+      <p>{ props.shoes.content } & { props.shoes.price }</p>
+    </div>
+  )
 }
 
 export default App;
