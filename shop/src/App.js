@@ -2,10 +2,14 @@ import { useState } from 'react';
 import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js';
+import Detail from './Detail.js';
 
 // react-bootstrap 설치 npm install react-bootstrap@next bootstrap@버전
 
 // 내보내기: export {변수1, 변수2, ...} 가져오기: import {변수1, 변수2, ...} from 경로
+
+import { Link, Route, Switch } from 'react-router-dom';
+// <Link to="url"></Link>
 
 function App() {
 
@@ -20,8 +24,8 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
+            <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -35,25 +39,42 @@ function App() {
     </Navbar>
 
     
-    <div className="background">
-      <h1>20% Season Off</h1>
-      <p>
-        This is a simple hero unit, a simple jumbotron-style component for calling
-        extra attention to featured content or information.
-      </p>
-      <Button variant="outline-primary">Primary</Button>{' '}
-    </div>
 
-    <div className="container">
-      <div className="row">
-        {
-          shoes.map( (a, i) => {
-            // 반복시킨 HTML에는 key가 필요
-            return <Item shoes={shoes[i]} i={i} key={i}/>
-          })
-        }
-      </div>
-    </div>
+    <Switch>
+
+      <Route exact path="/">
+        <div className="background">
+          <h1>20% Season Off</h1>
+          <p>
+            This is a simple hero unit, a simple jumbotron-style component for calling
+            extra attention to featured content or information.
+          </p>
+          <Button variant="outline-primary">Primary</Button>{' '}
+        </div>
+        <div className="container">
+          <div className="row">
+            {
+              shoes.map( (a, i) => {
+                // 반복시킨 HTML에는 key가 필요
+                return <Item shoes={shoes[i]} i={i} key={i}/>
+              })
+            }
+          </div>
+        </div>
+      </Route>
+
+      <Route path="/detail">
+        <Detail />
+      </Route>
+
+      <Route path="/:id">
+        <div>아거무나 적었을 때 이거 보여주셈</div>
+      </Route>
+
+      {/* <Route path="/..." component={Modal} ></Route> */}
+
+    </Switch>
+    {/* Switch : 중복 허용 안함 */}
 
     </div>
   );
