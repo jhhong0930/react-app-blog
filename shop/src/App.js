@@ -63,8 +63,9 @@ function App() {
         </div>
       </Route>
 
-      <Route path="/detail">
-        <Detail />
+      {/* :id -> url 파라미터 기능 */}
+      <Route path="/detail/:id">
+        <Detail shoes={shoes}/>
       </Route>
 
       <Route path="/:id">
