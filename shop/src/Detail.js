@@ -3,6 +3,16 @@ import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 // history.goBack(); 뒤로가기
 // history.push('url'); 특정 url로 이동
+import styled from 'styled-components';
+
+let Box = styled.div`
+    padding : 20px;
+`;
+
+let Title = styled.h4`
+    font-size: 25px;
+    color: ${ props => props.color }
+`;
 
 function Detail(props) {
 
@@ -16,6 +26,9 @@ function Detail(props) {
 
     return (
         <div className="container">
+            <Box>
+                <Title color={'red'}>title</Title>
+            </Box>
             <div className="row">
                 <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
@@ -30,7 +43,7 @@ function Detail(props) {
                     } }>뒤로가기</button>
                 </div>
             </div>
-        </div> 
+        </div>
     )
 }
 
