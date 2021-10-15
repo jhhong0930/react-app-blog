@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 // history.goBack(); 뒤로가기
 // history.push('url'); 특정 url로 이동
@@ -17,6 +17,24 @@ let Title = styled.h4`
 
 function Detail(props) {
 
+    let [alert, changeAlert] = useState(true);
+    let [inputData, changeInputData] = useState();
+
+    // useEffect 훅
+    // 컴포넌트가 mount 되었을 때, update될 때
+    // 특정 코드를 실행할 수 있다
+    useEffect(() => {
+        let timer = setTimeout(() => {changeAlert(false)}, 2000)
+        return () => { clearTimeout(timer) }
+    }, []);
+
+
+    // useEffect 훅2
+    // 컴포넌트가 사라질 때 코드를 실행할 수 있다
+    // useEffect(() => {
+    //     return function 어쩌구() { /*실행할 코드*/ }
+    // });
+
     let { id } = useParams();
 
     let 찾은상품 = props.shoes.find(function(상품) {
@@ -30,9 +48,18 @@ function Detail(props) {
             <Box>
                 <Title className="red">title</Title>
             </Box>
-            <div className="my-alert2">
-                <p>재고가 얼마 남지 않았습니다</p>
-            </div>
+
+            { inputData }
+            <input onChange={(e) => {changeInputData(e.target.value)} }/>
+
+            {
+                alert === true
+                ? (<div className="my-alert2">
+                        <p>재고가 얼마 남지 않았습니다</p>
+                    </div>)
+                : null
+            }
+
             <div className="row">
                 <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
