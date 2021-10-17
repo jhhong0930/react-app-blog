@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 // history.push('url'); 특정 url로 이동
 import styled from 'styled-components';
 import './Detail.scss';
-import {stockContext} from './App.js';
+import { stockContext } from './App.js';
 
 let Box = styled.div`
     padding : 20px;
@@ -13,7 +13,7 @@ let Box = styled.div`
 
 let Title = styled.h4`
     font-size: 25px;
-    color: ${ props => props.color }
+    color: ${props => props.color}
 `;
 
 function Detail(props) {
@@ -26,7 +26,7 @@ function Detail(props) {
     // 컴포넌트가 mount 되었을 때, update될 때
     // 특정 코드를 실행할 수 있다
     useEffect(() => {
-        let timer = setTimeout(() => {changeAlert(false)}, 2000)
+        let timer = setTimeout(() => { changeAlert(false) }, 2000)
         return () => { clearTimeout(timer) }
     }, []);
 
@@ -39,7 +39,7 @@ function Detail(props) {
 
     let { id } = useParams();
 
-    let 찾은상품 = props.shoes.find(function(상품) {
+    let 찾은상품 = props.shoes.find(function (상품) {
         return 상품.id == id;
     })
 
@@ -51,15 +51,15 @@ function Detail(props) {
                 <Title className="red">title</Title>
             </Box>
 
-            { inputData }
-            <input onChange={(e) => {changeInputData(e.target.value)} }/>
+            {inputData}
+            <input onChange={(e) => { changeInputData(e.target.value) }} />
 
             {
                 alert === true
-                ? (<div className="my-alert2">
+                    ? (<div className="my-alert2">
                         <p>재고가 얼마 남지 않았습니다</p>
                     </div>)
-                : null
+                    : null
             }
 
             <div className="row">
@@ -71,13 +71,15 @@ function Detail(props) {
                     <p>{찾은상품.content}</p>
                     <p>{찾은상품.price}원</p>
                     <Info stock={props.stock}></Info>
-                    <button className="btn btn-danger" onClick={ () => { props.setStock() }}>주문하기</button>
-                    <button className="btn btn-danger" onClick={ () => {
+                    <button className="btn btn-danger" onClick={() => { props.setStock() }}>주문하기</button>
+                    <button className="btn btn-danger" onClick={() => {
                         history.goBack();
-                    } }>뒤로가기</button>
+                    }}>뒤로가기</button>
                 </div>
             </div>
         </div>
+
+
     )
 }
 
