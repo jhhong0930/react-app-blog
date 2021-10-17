@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js';
 import Detail from './Detail.js';
+import axios from 'axios';
 
 // react-bootstrap 설치 npm install react-bootstrap@next bootstrap@버전
 
@@ -60,6 +61,15 @@ function App() {
               })
             }
           </div>
+          <button className="btn btn-primary" onClick={()=>{
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+            .then((result)=>{
+              console.log(result.data)
+            }) // 성공하면
+            .catch(()=>{
+              console.log('실패했다')
+            }) // 실패하면
+          }}>더보기</button>
         </div>
       </Route>
 
