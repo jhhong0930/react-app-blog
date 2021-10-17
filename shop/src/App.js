@@ -15,6 +15,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 function App() {
 
   let [shoes, changeShoes] = useState(Data);
+  let [stock, setStock] = useState([10, 11, 12]);
 
   return (
     <div className="App">
@@ -62,9 +63,12 @@ function App() {
             }
           </div>
           <button className="btn btn-primary" onClick={()=>{
+
+            // axios.post('url', {id: 'id', pw: '1234'})
+
             axios.get('https://codingapple1.github.io/shop/data2.json')
             .then((result)=>{
-              console.log(result.data)
+              changeShoes( [...shoes, ...result.data]);
             }) // 성공하면
             .catch(()=>{
               console.log('실패했다')
@@ -75,7 +79,7 @@ function App() {
 
       {/* :id -> url 파라미터 기능 */}
       <Route path="/detail/:id">
-        <Detail shoes={shoes}/>
+        <Detail shoes={shoes} stock={stock} setStock={setStock}/>
       </Route>
 
       <Route path="/:id">
