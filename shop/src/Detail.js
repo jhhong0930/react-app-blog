@@ -1,10 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 // history.goBack(); 뒤로가기
 // history.push('url'); 특정 url로 이동
 import styled from 'styled-components';
 import './Detail.scss';
+import {stockContext} from './App.js';
 
 let Box = styled.div`
     padding : 20px;
@@ -19,6 +20,7 @@ function Detail(props) {
 
     let [alert, changeAlert] = useState(true);
     let [inputData, changeInputData] = useState();
+    let stock = useContext(stockContext);
 
     // useEffect 훅
     // 컴포넌트가 mount 되었을 때, update될 때

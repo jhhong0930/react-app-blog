@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js';
@@ -11,6 +11,12 @@ import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 // <Link to="url"></Link>
+
+// Context 만들기
+// 1. 같은 변수값을 공유할 범위 생성
+// 2. 같은 값을 공유할 HTML을 <범위.Provider>로 감싸고 value={공유할값}
+// 3. useContext(범위)로 공유된 값 사용하기
+export let stockContext = React.createContext();
 
 function App() {
 
@@ -54,14 +60,20 @@ function App() {
           <Button variant="outline-primary">Primary</Button>{' '}
         </div>
         <div className="container">
-          <div className="row">
-            {
-              shoes.map( (a, i) => {
-                // 반복시킨 HTML에는 key가 필요
-                return <Item shoes={shoes[i]} i={i} key={i}/>
-              })
-            }
-          </div>
+
+          <stockContext.Provider value={stock}>
+
+            <div className="row">
+              {
+                shoes.map( (a, i) => {
+                  // 반복시킨 HTML에는 key가 필요
+                  return <Item shoes={shoes[i]} i={i} key={i}/>
+                })
+              }
+            </div>
+
+          </stockContext.Provider>
+
           <button className="btn btn-primary" onClick={()=>{
 
             // axios.post('url', {id: 'id', pw: '1234'})
@@ -79,7 +91,10 @@ function App() {
 
       {/* :id -> url 파라미터 기능 */}
       <Route path="/detail/:id">
-        <Detail shoes={shoes} stock={stock} setStock={setStock}/>
+        {/* 다른 파일에 context를 공유하고 싶을 때 */}
+        <stockContext.Provider value={stock}>
+          <Detail shoes={shoes} stock={stock} setStock={setStock}/>
+        </stockContext.Provider>
       </Route>
 
       <Route path="/:id">
@@ -96,13 +111,22 @@ function App() {
 }
 
 function Item(props) {
+
+  let stock = useContext(stockContext);
+
   return (
     <div className="col-md-4">
       <img src={ 'https://codingapple1.github.io/shop/shoes' + (props.i + 1) +'.jpg' } width="100%" />
       <h4>{ props.shoes.title }</h4>
       <p>{ props.shoes.content } & { props.shoes.price }</p>
+      <Test></Test>
     </div>
   )
+}
+
+function Test() {
+  let stock = useContext(stockContext);
+  return <p>{stock[0]}</p>
 }
 
 export default App;
